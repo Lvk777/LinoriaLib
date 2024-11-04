@@ -190,3 +190,5 @@ end
 if Settings.KeySystem then
     repeat task.wait() until Passthrough
 end
+
+return KeySystem
