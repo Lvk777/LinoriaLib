@@ -1,14 +1,14 @@
+local HttpService = game:GetService("HttpService")
+local CoreGui = game:GetService("CoreGui")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+
 local RayfieldFolder = "Rayfield"
-local ConfigurationFolder = RayfieldFolder.."/Configurations"
 local ConfigurationExtension = ".rfld"
 
-local function KeySystem(Settings)
+local function createKeySystem(Settings)
     local Passthrough = false
-
-    if not Settings.KeySettings then
-        Passthrough = true
-        return
-    end
 
     if not isfolder(RayfieldFolder.."/Key System") then
         makefolder(RayfieldFolder.."/Key System")
@@ -24,7 +24,6 @@ local function KeySystem(Settings)
             end)
             if not Success then
                 print("Rayfield | "..Key.." Error " ..tostring(Response))
-                warn('Check docs.sirius.menu for help with Rayfield specific development.')
             end
         end
     end
@@ -134,7 +133,6 @@ local function KeySystem(Settings)
                     if writefile then
                         writefile(RayfieldFolder.."/Key System".."/"..Settings.KeySettings.FileName..ConfigurationExtension, FoundKey)
                     end
-                    RayfieldLibrary:Notify({Title = "Key System", Content = "The key for this script has been saved successfully."})
                 end
             else
                 if AttemptsRemaining == 0 then
@@ -185,10 +183,8 @@ local function KeySystem(Settings)
     else
         Passthrough = true
     end
-end
 
-if Settings.KeySystem then
-    repeat task.wait() until Passthrough
+    if Settings.KeySystem then
+        repeat task.wait() until Passthrough
+    end
 end
-
-return KeySystem
